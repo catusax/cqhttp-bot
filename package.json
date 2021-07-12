@@ -1,0 +1,35 @@
+{
+  "name": "cqhttp_bot",
+  "version": "0.1.0",
+  "description": "使用正向 websocket 的 cqhttp bot",
+  "main": "dist/mod.js",
+  "typings": "dist/mod.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && denoify",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "tslint -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coolrc136/cqhttp-bot.git"
+  },
+  "keywords": [
+    "coolq",
+    "cqhttp",
+    "bot"
+  ],
+  "author": "coolrc",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/coolrc136/cqhttp-bot/issues"
+  },
+  "homepage": "https://github.com/coolrc136/cqhttp-bot#readme",
+  "devDependencies": {
+    "denoify": "^0.7.2",
+    "prettier": "^2.3.2",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.3.5"
+  }
+}

@@ -1,5 +1,4 @@
 export class CqCode {
-
     message: string = ''
     at: number = 0
     // image:string
@@ -15,7 +14,8 @@ export class CqCode {
     // json:string
     constructor(str: string) {
         this.message = str.replace(/\[CQ.*?\]/gm, '').trim() //删掉所有coolq码
-        if (str.startsWith('[CQ:')) {//cq码
+        if (str.startsWith('[CQ:')) {
+            //cq码
             let type = /(?<=^\[CQ:)[a-z]*(?=,)/gm.exec(str)![0] || 'text' //肯定能匹配到
             if (type == 'at') {
                 let num = /(?<=^\[CQ:at,qq=)[0-9]*(?=\])/g.exec(str)![0] || '0'

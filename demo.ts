@@ -1,4 +1,7 @@
-import {QBot, CqMessageEvent} from 'https://cdn.jsdelivr.net/gh/coolrc136/cqhttp-bot@main/mod.ts'
+// @ts-ignore
+// import {QBot, CqMessageEvent} from 'https://cdn.jsdelivr.net/gh/coolrc136/cqhttp-bot@main/deno_dist/mod.ts'
+// @ts-ignore
+import {QBot, CqMessageEvent} from './deno_dist/mod.ts'
 
 
 const bot = new QBot("ws://111.111.111.111:6700?access_token=123456")
@@ -44,7 +47,7 @@ const plugins:Plugin[] = [
 function regex_match(msg:CqMessageEvent){
   plugins.forEach(async (item)=>{
     if (item.regex.test(msg.message)) {
-      let resp = item.handler(msg,msg.message)
+      const resp = item.handler(msg,msg.message)
       if (resp) {
         bot.send(await resp)
       }

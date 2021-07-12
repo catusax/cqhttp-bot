@@ -13,46 +13,44 @@ export class CqMessageEvent {
     group_id: number | undefined
     anonymous: any
 
-    constructor(data:any){
-        this.copy(data,this)
+    constructor(data: any) {
+        this.copy(data, this)
     }
 
-    private copy(source:any, dest:any) {
-        for (let key in dest) {
+    private copy(source: any, dest: any) {
+        for (const key in dest) {
             if (source.hasOwnProperty(key)) {
-                dest[key] = source[key];
+                dest[key] = source[key]
             }
         }
     }
-    /** 生成快速回复的api字符串*/
+    /** 生成快速回复的api字符串 */
     quick_reply(text: string): string {
-        let resp: api = {
+        const resp: api = {
             action: '.handle_quick_operation',
             params: {
                 context: this,
                 operation: {
-                    reply: text
-                }
+                    reply: text,
+                },
             },
-            echo: text
+            echo: text,
         }
         return JSON.stringify(resp)
     }
 }
 
-
-interface api {
-    action: string,
-    params: handle_quick_operation,
+type api = {
+    action: string
+    params: handle_quick_operation
     echo: string
 }
 
-interface handle_quick_operation {
-    context: any,
+type handle_quick_operation = {
+    context: any
     operation: reply
 }
 
-interface reply {
+type reply = {
     reply: string
 }
-

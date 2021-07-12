@@ -4,7 +4,7 @@
 ## 使用
 ```ts
 // echo bot
-import {QBot} from 'https://cdn.jsdelivr.net/gh/coolrc136/cqhttp-bot@main/deno_dist/mod.ts'
+import {QBot} from 'https://cdn.jsdelivr.net/gh/coolrc136/cqhttp-bot@main/mod.ts'
 
 const bot = new QBot("ws://111.111.111.111:6700?access_token=123456")
 
