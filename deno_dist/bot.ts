@@ -44,9 +44,9 @@ export class QBot {
             if (data.post_type == 'message') {
                 const message_event = new CqMessageEvent(data)
                 // 消息事件
-                this.message_handlers.forEach((handler) => {
+                this.message_handlers.forEach(async (handler) => {
                     try {
-                        handler(message_event)
+                        await handler(message_event)
                     } catch (e) {
                         console.log(e)
                     }
@@ -55,9 +55,9 @@ export class QBot {
                 const cqcode = new CqCode(message_event.message)
                 if (cqcode.at == data.self_id) {
                     // at事件
-                    this.at_message_handlers.forEach((handler) => {
+                    this.at_message_handlers.forEach(async (handler) => {
                         try {
-                            handler(message_event, cqcode)
+                            await handler(message_event, cqcode)
                         } catch (e) {
                             console.log(e)
                         }
@@ -69,11 +69,11 @@ export class QBot {
 }
 
 /** message事件详细信息看文档： https://github.com/botuniverse/onebot/blob/master/v11/specs/event/message.md */
-export type messageHandler = (message: CqMessageEvent) => void
+export type messageHandler = (message: CqMessageEvent) => void | Promise<void>
 
 /**
  * at message事件
  * message: 原始message
  * cqcode： 从原始message里提取的coolq code信息
  */
-export type atMessageHandler = (message: CqMessageEvent, cqcode: CqCode) => void
+export type atMessageHandler = (message: CqMessageEvent, cqcode: CqCode) => void | Promise<void>
