@@ -1,3 +1,5 @@
+import { clone } from './utils.ts'
+
 export class CqMessageEvent {
     time: number | undefined
     self_id: number | undefined
@@ -29,7 +31,7 @@ export class CqMessageEvent {
         const resp: QuickReply = {
             action: '.handle_quick_operation',
             params: {
-                context: this,
+                context: clone(this),
                 operation: {
                     reply: text,
                 },
@@ -40,15 +42,10 @@ export class CqMessageEvent {
     }
 }
 
-// tslint:disable-next-line: max-classes-per-file
-export class QuickReply {
-    action: string ='.handle_quick_operation'
-    params: handle_quick_operation|undefined
-    echo: string =''
-
-    toString() {
-        return JSON.stringify(this)
-    }
+export type QuickReply = {
+    action: string
+    params: handle_quick_operation | undefined
+    echo: string
 }
 
 type handle_quick_operation = {

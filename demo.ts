@@ -1,37 +1,37 @@
 // @ts-ignore
 // import {QBot, CqMessageEvent} from 'https://cdn.jsdelivr.net/gh/coolrc136/cqhttp-bot@main/deno_dist/mod.ts'
 // @ts-ignore
-import {QBot, CqMessageEvent} from './src/mod'
+import { QBot, CqMessageEvent, QuickReply } from './src/mod'
 
 
 const bot = new QBot("ws://111.111.111.111:6700?access_token=123456")
 
 
-async function help(msg:CqMessageEvent, command:string):Promise<string>{
+async function help(msg: CqMessageEvent, command: string): Promise<QuickReply> {
   // tslint:disable-next-line: no-shadowed-variable
   let help = `使用说明:
   [命令]`
   plugins.forEach(element => {
-    if (element.descripion){
+    if (element.descripion) {
       help += '\n  ' + element.descripion
     }
   });
 
-  return msg.quick_reply(help).toString()
+  return msg.quick_reply(help)
 }
 
-async function nothing(msg:CqMessageEvent, command:string):Promise<string>{
-  return msg.quick_reply(`at我干啥`).toString()
+async function nothing(msg: CqMessageEvent, command: string): Promise<QuickReply> {
+  return msg.quick_reply(`at我干啥`)
 }
 
 type Plugin = {
   regex: RegExp
-  handler:(msg:CqMessageEvent, command:string)=>Promise<string>
-  descripion:string | null
+  handler: (msg: CqMessageEvent, command: string) => Promise<QuickReply>
+  descripion: string | null
 }
 
 // 从上到下搜索，只执行第一个匹配到的正则
-const plugins:Plugin[] = [
+const plugins: Plugin[] = [
   {
     regex: /^$/,
     handler: nothing,
@@ -45,13 +45,11 @@ const plugins:Plugin[] = [
 ]
 
 
-function regex_match(msg:CqMessageEvent){
-  plugins.forEach(async (item)=>{
+function regex_match(msg: CqMessageEvent) {
+  plugins.forEach(async (item) => {
     if (item.regex.test(msg.message)) {
-      const resp = item.handler(msg,msg.message)
-      if (resp) {
-        bot.send(await resp)
-      }
+      const resp = await item.handler(msg, msg.message)
+      bot.send(JSON.stringify(resp))
       return
     }
   })
