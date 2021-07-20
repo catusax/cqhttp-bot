@@ -24,9 +24,9 @@ export class CqMessageEvent {
             }
         }
     }
-    /** 生成快速回复的api字符串 */
-    quick_reply(text: string): string {
-        const resp: api = {
+    /** 生成快速回复 */
+    quick_reply(text: string): QuickReply {
+        const resp: QuickReply = {
             action: '.handle_quick_operation',
             params: {
                 context: this,
@@ -36,18 +36,23 @@ export class CqMessageEvent {
             },
             echo: text,
         }
-        return JSON.stringify(resp)
+        return resp
     }
 }
 
-type api = {
-    action: string
-    params: handle_quick_operation
-    echo: string
+// tslint:disable-next-line: max-classes-per-file
+export class QuickReply {
+    action: string ='.handle_quick_operation'
+    params: handle_quick_operation|undefined
+    echo: string =''
+
+    toString() {
+        return JSON.stringify(this)
+    }
 }
 
 type handle_quick_operation = {
-    context: any
+    context: CqMessageEvent
     operation: reply
 }
 

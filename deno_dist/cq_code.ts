@@ -13,12 +13,13 @@ export class CqCode {
     // xml:string
     // json:string
     constructor(str: string) {
-        this.message = str.replace(/\[CQ.*?\]/gm, '').trim() //删掉所有coolq码
+        this.message = str.replace(/\[CQ.*?\]/gm, '').trim() // 删掉所有coolq码
         if (str.startsWith('[CQ:')) {
-            //cq码
-            let type = /(?<=^\[CQ:)[a-z]*(?=,)/gm.exec(str)![0] || 'text' //肯定能匹配到
+            // cq码
+            const type = /(?<=^\[CQ:)[a-z]*(?=,)/gm.exec(str)![0] || 'text' // 肯定能匹配到
             if (type == 'at') {
-                let num = /(?<=^\[CQ:at,qq=)[0-9]*(?=\])/g.exec(str)![0] || '0'
+                const num = /(?<=^\[CQ:at,qq=)[0-9]*(?=\])/g.exec(str)![0] || '0'
+                // tslint:disable-next-line: radix
                 this.at = parseInt(num)
             }
         } else {

@@ -9,7 +9,7 @@ import {QBot} from 'https://cdn.jsdelivr.net/gh/coolrc136/cqhttp-bot@main/deno_d
 const bot = new QBot("ws://111.111.111.111:6700?access_token=123456")
 
 bot.onmessage(msg=> {
-    bot.send(msg.quick_reply(msg.message))
+    bot.send(msg.quick_reply(msg.message).toString())
 })
 bot.run()
 ```
