@@ -1,6 +1,6 @@
 export class CqCode {
     message: string = ''
-    at: number = 0
+    at: number = 0 // 消息里第一个被at的人，用于判断at事件
     // image:string
     // record:string //录音
     // face:number //表情
@@ -13,7 +13,7 @@ export class CqCode {
     // xml:string
     // json:string
     constructor(str: string) {
-        this.message = str.replace(/\[CQ.*?\]/gm, '').trim() // 删掉所有coolq码
+        this.message = str.replace(/\[CQ.*?\]/gm, '') // 删掉所有coolq码
         if (str.startsWith('[CQ:')) {
             // cq码
             const type = /(?<=^\[CQ:)[a-z]*(?=,)/gm.exec(str)![0] || 'text' // 肯定能匹配到
