@@ -8,7 +8,7 @@ export class CqMessageEvent {
     sub_type: string | undefined
     message_id: number | undefined
     user_id: number | undefined
-    message: any
+    message: string = ""
     raw_message: string | undefined
     font: number | undefined
     sender: any
@@ -17,6 +17,9 @@ export class CqMessageEvent {
 
     constructor(data: any) {
         this.copy(data, this)
+        this.message = this.message!.replace('\r\n', '\n')
+            .replace(/&#(\d+);/g, (_v, f) => String.fromCharCode(+f))
+            .replace("&amp;", "&")
     }
 
     private copy(source: any, dest: any) {
